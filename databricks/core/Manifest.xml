@@ -4,19 +4,11 @@
   <Owner displayname="Darwin Schweitzer" email="darsch@microsoft.com"/>
   <ImageUrl>{PatternAssetBaseUrl}/azuredatabricks.png</ImageUrl>
   <Description>Analyzing data streams in real-time using Operational Technology like real-time times series analysis to detect changes, monitor, and/or control physical devices, processes, and events in the enterprise..  This tutorial lets you stream data from Twitter using Key Words of your choice including #hashtags and @mentions and use Microsoft's Time Series Insights to monitor those keywords.</Description>
-  <Summary src="Summary.md" format="markdown"/>
+  <Summary src="markdown/Summary.md" format="markdown"/>
   <EstimatedTime>15 Minutes</EstimatedTime>
   <EstimatedCost daily="$12.45" url="https://azure.github.io/Azure-CortanaIntelligence-SolutionAuthoringWorkspace/solution-prices#time-series-insights-using-twitter" />
-  <Ingredients>
-    <Ingredient>EventHub</Ingredient>
-    <Ingredient>StreamAnalytics</Ingredient>
-    <Ingredient>StorageAccount</Ingredient>
-    <Ingredient>MachineLearning</Ingredient>
-    <Ingredient>Sql</Ingredient>
-    <Ingredient>PowerBi</Ingredient>
-  </Ingredients>
   <ProvisioningSteps>
-    <Manual parameterSource="CreateResourcesArm.json" title="Setup Azure Databricks Workspace">
+    <Manual parameterSource="arm/CreateResourcesArm.json" title="Setup Azure Databricks Workspace">
       <Parameters>
         <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" />
       </Parameters>
@@ -24,7 +16,7 @@
     <Manual title="Configure Twitter listener">
       <Parameters>
         <Parameter name="twitterKeywords" description="Twitter topics"
-          type="string" defaultValue="@Microsoft,@ch9,#msbuild,#Seattle,#devops,#agile,#cloud,#msdev,#developer,#Xamarin,#azure,#startups,#microservices">
+          type="string" defaultValue="@databricks,@ApacheSpark,@Azure,@SparkAISummit,#Spark,#ApacheSpark,#SparkAISummit,#SparkSummit,#PySpark,#StructuredStreaming,#MLlib">
           <ExtraDescription>
             Comma-separated list of words, phrases, #hashtags and @mentions
           </ExtraDescription>
@@ -44,7 +36,7 @@
         <Add key="TWITTER_OAUTH_TOKEN_SECRET" value="{Inputs.oauthTokenSecret}" />
       </AppSettings>
     </AzureFunctionApp>
-    <ArmDeployment source="CreateResourcesArm.json" title="Creating solution's Azure resources" autoResolveParameters="true" />
+    <ArmDeployment source="arm/CreateResourcesArm.json" title="Creating solution's Azure resources" autoResolveParameters="true" />
     <AzureFunctionApp title="Starting data ingress">
       <ConnectionStrings>
         <Add name="EventHubConnectionString" connectionString="{Outputs.eventHubConnectionStringIngest}" />
@@ -52,7 +44,7 @@
       <DeployWebJobs src="{PatternAssetBaseUrl}/WebJobs.zip" />
     </AzureFunctionApp>
     <Manual title="Done">
-      <Instructions src="Instructions.md" format="markdown" />
+      <Instructions src="markdown/Instructions.md" format="markdown" />
     </Manual>
   </ProvisioningSteps>
 </Template>
