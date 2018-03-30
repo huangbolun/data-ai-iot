@@ -8,7 +8,7 @@
   <EstimatedTime>15 Minutes</EstimatedTime>
   <EstimatedCost daily="$12.45" url="https://azure.github.io/Azure-CortanaIntelligence-SolutionAuthoringWorkspace/solution-prices#time-series-insights-using-twitter" />
   <ProvisioningSteps>
-    <Manual parameterSource="arm/CreateResourcesArm.json" title="Setup Azure Databricks Workspace">
+    <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
       <Parameters>
         <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" />
       </Parameters>
@@ -36,7 +36,30 @@
         <Add key="TWITTER_OAUTH_TOKEN_SECRET" value="{Inputs.oauthTokenSecret}" />
       </AppSettings>
     </AzureFunctionApp>
-    <ArmDeployment source="arm/CreateResourcesArm.json" title="Creating solution's Azure resources" autoResolveParameters="true" />
+    <ArmDeployment source="arm/eventhubARM.json" title="Creating Event Hub" autoResolveParameters="true" >
+        <Parameters>
+          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+        </Parameters>
+    </ArmDeployment>
+    <ArmDeployment source="arm/timeseriesinsightsARM.json" title="Creating Times Series Insights" autoResolveParameters="true" >
+        <Parameters>
+          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+          <Parameter name="sbNameIngest" defaultValue="{Outputs.sbNameIngest}" hidden="true" />
+          <Parameter name="sbKeyName" defaultValue="{Outputs.sbKeyName}" hidden="true" />
+          <Parameter name="sbResourceIdIngest" defaultValue="{Outputs.sbResourceIdIngest}" hidden="true" />
+          <Parameter name="ehInNameIngest" defaultValue="{Outputs.ehInNameIngest}" hidden="true" />
+          <Parameter name="consumerGroupName" defaultValue="{Outputs.consumerGroupName}" hidden="true" />
+          <Parameter name="sbVersion" defaultValue="{Outputs.sbVersion}" hidden="true" />
+        </Parameters>
+    </ArmDeployment>
+    <ArmDeployment source="arm/databricksARM.json" title="Creating Azure Databricks workspace" autoResolveParameters="true" >
+        <Parameters>
+          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+        </Parameters>
+    </ArmDeployment>
     <AzureFunctionApp title="Starting data ingress">
       <ConnectionStrings>
         <Add name="EventHubConnectionString" connectionString="{Outputs.eventHubConnectionStringIngest}" />

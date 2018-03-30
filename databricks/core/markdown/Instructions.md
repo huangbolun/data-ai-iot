@@ -8,10 +8,14 @@
  * Click on **Overview**
  * Click on **Go to Environment** or the **Time Series Insights URL**
  
- [Open Time Series Insights](https://insights.timeseries.azure.com/).
+ [Open Time Series Insights](https://insights.timeseries.azure.com/)
+
+#### Azure Databricks Workspace
+[Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
+* [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
 **Change Keywords in Function app settings**
 [Open the Function App](https://ms.portal.azure.com/?flight=1#blade/WebsitesExtension/FunctionsIFrameBlade/id/%2Fsubscriptions%2F{SubscriptionId}%2FresourceGroups%2F{ProjectName}%2Fproviders%2FMicrosoft.Web%2Fsites%2F{Outputs.functionAppName})

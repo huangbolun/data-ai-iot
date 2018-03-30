@@ -1,0 +1,49 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Workspace Name for Azure Databricks."
+            }
+        },
+        "storageContainerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage container name."
+            }
+        },
+        "storageAccountConnectionString": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        }
+    },
+    "variables": {
+        "namePrefix": "[resourceGroup().name]",
+        "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
+        "location": "[resourceGroup().location]",
+        "tier": "premium",
+        "managedResourceGroupName": "[concat('databricks-rg-', parameters('workspaceName'), '-', uniqueString(parameters('workspaceName'), resourceGroup().id))]",
+        "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]"
+    },   
+    "resources": [
+    {
+            "apiVersion": "2018-04-01",
+            "location": "[variables('location')]",
+            "name": "[parameters('workspaceName')]",
+            "sku": {
+                "name": "[variables('tier')]"
+            },
+            "properties": {
+                "ManagedResourceGroupId": "[variables('managedResourceGroupId')]"
+            },
+            "type": "Microsoft.Databricks/workspaces"
+    }
+],
+    "outputs": {
+        "databricksOverviewUrl": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Databricks/workspaces/', parameters('workspaceName'),'/overview')]" }
+        }
+}

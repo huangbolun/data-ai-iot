@@ -1,0 +1,117 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Workspace Name for Azure Databricks."
+            }
+        },
+        "storageContainerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage container name."
+            }
+        },
+        "storageAccountConnectionString": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        }
+    },
+    "variables": {
+        "namePrefix": "[resourceGroup().name]",
+        "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
+        "location": "[resourceGroup().location]",
+        "sbVersion": "2014-09-01",
+        "sbNameIngest": "[concat(variables('uniqueNamePrefix'), 'servicebusingest')]",
+        "sbKeyName": "RootManageSharedAccessKey",
+        "sbResourceIdIngest": "[resourceId('Microsoft.Eventhub/namespaces/authorizationRules', variables('sbNameIngest'), variables('sbKeyName'))]",
+        "ehInNameIngest": "[concat(variables('namePrefix'), 'ehiningest')]",
+        "ehSendPolicyKeyName": "SendPolicy",
+        "ehSendPolicyResourceIdIngest": "[resourceId('Microsoft.EventHub/namespaces/eventHubs/authorizationRules', variables('sbNameIngest'), variables('ehInNameIngest'), variables('ehSendPolicyKeyName'))]",
+        "ehResourceIdIngest": "[concat(concat(concat('Microsoft.Eventhub/namespaces/', variables('sbNameIngest')), '/eventHubs/'), variables('ehInNameIngest'))]",
+        "ehSendPolicyNameIngest": "[concat(variables('sbNameIngest'), concat('/', concat(variables('ehInNameIngest'), concat('/', variables('ehSendPolicyKeyName')))))]",
+        "consumerGroupName": "[concat(variables('namePrefix'), 'timeseriestweets')]"
+    },
+    "resources": [
+    {
+        "apiVersion": "[variables('sbVersion')]",
+        "name": "[variables('sbNameIngest')]",
+        "type": "Microsoft.Eventhub/namespaces",
+        "location": "[variables('location')]",
+        "properties": {
+            "region": "[variables('location')]"
+        },
+        "resources": [{
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[variables('ehInNameIngest')]",
+            "type": "eventHubs",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Eventhub/namespaces/', variables('sbNameIngest'))]"
+            ],
+            "properties": {
+                "path": "[variables('ehInNameIngest')]"
+            },
+            "resources": [{
+                "apiVersion": "2015-08-01",
+                "name": "[variables('consumerGroupName')]",
+                "type": "ConsumerGroups",
+                "location": "[variables('location')]",
+                "dependsOn": [
+                    "[concat('Microsoft.EventHub/namespaces/', variables('sbNameIngest'),'/eventhubs/',variables('ehInNameIngest'))]"
+                ],
+                "properties": {}
+            }, {
+                "apiVersion": "2015-08-01",
+                "name": "[variables('ehSendPolicyKeyName')]",
+                "type": "authorizationRules",
+                "location": "[variables('location')]",
+                "dependsOn": [
+                    "[variables('ehResourceIdIngest')]"
+                ],
+                "properties": {
+                    "rights": [
+                        "Send",
+                        "Listen",
+                        "Manage"
+                    ]
+                }
+            }]
+        }]
+    }
+    ],
+    "outputs": {
+        "eventHubConnectionStringIngest": {
+            "type": "string",
+            "value": "[listkeys(variables('ehSendPolicyResourceIdIngest'), variables('sbVersion')).primaryConnectionString]"
+        },
+        "sbNameIngest": {
+            "type": "string",
+            "value": "[variables('sbNameIngest')]"
+        },
+        "sbKeyName": {
+            "type": "string",
+            "value": "[variables('sbKeyName')]"
+        },
+        "sbResourceIdIngest": {
+            "type": "string",
+            "value": "[variables('sbResourceIdIngest')]"
+        },
+        "ehInNameIngest": {
+            "type": "string",
+            "value": "[variables('ehInNameIngest')]"
+        },
+        "consumerGroupName": {
+            "type": "string",
+            "value": "[variables('consumerGroupName')]"
+        },
+        "sbVersion": {
+            "type": "string",
+            "value": "[variables('sbVersion')]"
+        }
+    }
+}

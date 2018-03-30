@@ -1,0 +1,134 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Workspace Name for Azure Databricks."
+            }
+        },
+        "storageContainerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage container name."
+            }
+        },
+        "storageAccountConnectionString": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        },
+        "sbNameIngest": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus Name Ingest."
+            }
+        },"sbKeyName": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus Key Name."
+            }
+        },
+        "sbResourceIdIngest": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus ResourceId Ingest."
+            }
+        },
+        "ehInNameIngest": {
+            "type": "string",
+            "metadata": {
+                "description": "Event Hub Name Ingest."
+            }
+        },
+        "consumerGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "Event Hub Consumer Group Name."
+            }
+        },
+        "sbVersion": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus Version."
+            }
+        }
+    },
+    "variables": {
+        "namePrefix": "[resourceGroup().name]",
+        "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
+        "location": "[resourceGroup().location]",
+        "environmentName": "[concat(variables('uniqueNamePrefix'), 'tsienv')]",
+        "environmentSkuName": "S1",
+        "environmentSkuCapacity": 1,
+        "environmentDataRetentionTime": "P30D",
+        "environmentDisplayName": "[concat(variables('namePrefix'), 'StreamingTweets')]",
+        "eventSourceName": "[concat(variables('uniqueNamePrefix'), 'eventsource')]",
+        "eventSourceDisplayName": "Twitter Time Series Insights",
+        "eventHubResourceId": "[parameters('sbResourceIdIngest')]",
+        "eventHubServiceBusNamespace": "[parameters('sbNameIngest')]",
+        "eventHubName": "[parameters('ehInNameIngest')]",
+        "eventHubConsumerGroupName": "[parameters('consumerGroupName')]",
+        "eventHubKeyName": "[parameters('sbKeyName')]",
+        "environmentTagsOptions": [
+            null,
+            {
+                "displayName": "[variables('environmentDisplayName')]"
+            }
+        ],
+        "environmentTagsValue": "[variables('environmentTagsOptions')[length(take(variables('environmentDisplayName'), 1))]]",
+        "eventSourceTagsOptions": [
+            null,
+            {
+                "displayName": "[variables('eventSourceDisplayName')]"
+            }
+        ],
+        "eventSourceTagsValue": "[variables('eventSourceTagsOptions')[length(take(variables('eventSourceDisplayName'), 1))]]"
+    },
+    "resources": [
+    {
+      "type": "Microsoft.TimeSeriesInsights/environments",
+      "name": "[variables('environmentName')]",
+      "apiVersion": "2017-02-28-preview",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "dataRetentionTime": "[variables('environmentDataRetentionTime')]"
+      },
+      "sku": {
+        "name": "[variables('environmentSkuName')]",
+        "capacity": "[variables('environmentSkuCapacity')]"
+      },
+      "tags": "[variables('environmentTagsValue')]",
+      "resources": [
+        {
+          "type": "eventsources",
+          "name": "[variables('eventSourceName')]",
+          "apiVersion": "2017-02-28-preview",
+          "location": "[resourceGroup().location]",
+          "kind": "Microsoft.EventHub",
+          "properties": {
+            "eventSourceResourceId": "[variables('eventHubResourceId')]",
+            "serviceBusNamespace": "[variables('eventHubServiceBusNamespace')]",
+            "eventHubName": "[variables('eventHubName')]",
+            "consumerGroupName": "[variables('eventHubConsumerGroupName')]",
+            "keyName": "[variables('eventHubKeyName')]",
+            "sharedAccessKey": "[listkeys(parameters('sbResourceIdIngest'), parameters('sbVersion')).primaryKey]"
+          },
+          "tags": "[variables('eventSourceTagsValue')]",
+          "dependsOn": [
+            "[concat('Microsoft.TimeSeriesInsights/environments/', variables('environmentName'))]"
+          ]
+        }
+      ]
+    }],
+    "outputs": {
+        "dataAccessId" : {
+            "value" : "[reference(resourceId('Microsoft.TimeSeriesInsights/environments', variables('environmentName'))).dataAccessId]",
+             "type": "string"
+        },
+        "dataAccessPaneUrl": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.TimeSeriesInsights/environments/', variables('environmentName'),'/access')]" },
+        "tsiOverviewUrl": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.TimeSeriesInsights/environments/', variables('environmentName'),'/overview')]" }
+    }
+}
