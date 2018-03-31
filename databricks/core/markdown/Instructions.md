@@ -22,18 +22,18 @@
  * Use the default Sample Capture file name formats as **{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}**
  * Click **Save Changes**
 
-![Capture Settings](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
+![Capture Settings](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/Capture.JPG)
 
 #### Azure Databricks Workspace
 [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
 * Click **Launch Workspace**
 
-![Launch Workspace](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
+![Launch Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/LaunchWorkspace.JPG)
 
 * Choose Organization which will land you in the Azure Databricks Workspace
 
-![Azure Databricks Workspace](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
+![Azure Databricks Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksWorkspace.JPG)
 
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
