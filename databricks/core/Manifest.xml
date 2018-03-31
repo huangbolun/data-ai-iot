@@ -39,6 +39,7 @@
     <ArmDeployment source="arm/eventhubARM.json" title="Creating Event Hub" autoResolveParameters="true" >
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageAccountName" defaultValue="{Outputs.storageAccountName}" hidden="true" />
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
         </Parameters>
     </ArmDeployment>

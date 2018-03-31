@@ -8,6 +8,12 @@
                 "description": "Workspace Name for Azure Databricks."
             }
         },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        },
         "storageContainerName": {
             "type": "string",
             "metadata": {
@@ -25,7 +31,7 @@
         "namePrefix": "[resourceGroup().name]",
         "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
         "location": "[resourceGroup().location]",
-        "sbVersion": "2014-09-01",
+        "sbVersion": "2017-04-01",
         "sbNameIngest": "[concat(variables('uniqueNamePrefix'), 'servicebusingest')]",
         "sbKeyName": "RootManageSharedAccessKey",
         "sbResourceIdIngest": "[resourceId('Microsoft.Eventhub/namespaces/authorizationRules', variables('sbNameIngest'), variables('sbKeyName'))]",
@@ -40,10 +46,32 @@
     {
         "apiVersion": "[variables('sbVersion')]",
         "name": "[variables('sbNameIngest')]",
-        "type": "Microsoft.Eventhub/namespaces",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+            "name": "Standard",
+            "tier": "Standard",
+            "capacity": 1
+        },
         "location": "[variables('location')]",
-        "properties": {
-            "region": "[variables('location')]"
+        "scale": null,
+            "properties": {
+                "messageRetentionInDays": 7,
+                "partitionCount": 4,
+                "status": "Active",
+                "captureDescription": {
+                    "enabled": true,
+                    "encoding": "Avro",
+                    "destination": {
+                        "name": "EventHubArchive.AzureBlockBlob",
+                        "properties": {
+                            "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+                            "blobContainer": "[parameters('storageContainerName')]",
+                            "archiveNameFormat": "{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}"
+                        }
+                    },
+                    "intervalInSeconds": 300,
+                    "sizeLimitInBytes": 314572800
+                }
         },
         "resources": [{
             "apiVersion": "[variables('sbVersion')]",
@@ -57,7 +85,7 @@
                 "path": "[variables('ehInNameIngest')]"
             },
             "resources": [{
-                "apiVersion": "2015-08-01",
+                "apiVersion": "[variables('sbVersion')]",
                 "name": "[variables('consumerGroupName')]",
                 "type": "ConsumerGroups",
                 "location": "[variables('location')]",
@@ -66,7 +94,7 @@
                 ],
                 "properties": {}
             }, {
-                "apiVersion": "2015-08-01",
+                "apiVersion": "[variables('sbVersion')]",
                 "name": "[variables('ehSendPolicyKeyName')]",
                 "type": "authorizationRules",
                 "location": "[variables('location')]",
