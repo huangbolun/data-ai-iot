@@ -113,6 +113,7 @@
     }
     ],
     "outputs": {
+        "ehCapture": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.EventHub/namespaces/', variables('sbNameIngest'), '/eventhubs/', variables('ehInNameIngest'), '/capture')]" },
         "eventHubConnectionStringIngest": {
             "type": "string",
             "value": "[listkeys(variables('ehSendPolicyResourceIdIngest'), variables('sbVersion')).primaryConnectionString]"

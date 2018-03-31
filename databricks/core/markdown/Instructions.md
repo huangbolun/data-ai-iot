@@ -1,20 +1,43 @@
 ## Instructions
 
 #### Time Series Insights
-[Add your user in the Time Series Insights Data Access Pane]({Outputs.dataAccessPaneUrl}).
+[Add your user in the Time Series Insights Data Access Pane]({Outputs.dataAccessPaneUrl})
 
  * Click on **+Add** > **Select user** > **Enter your account** > click **Select**
  * Click on **Select role** > choose **Contributor** > click **Ok** > click **Ok**
  * Click on **Overview**
  * Click on **Go to Environment** or the **Time Series Insights URL**
  
- [Open Time Series Insights](https://insights.timeseries.azure.com/)
+ [Open Time Series Insights](https://insights.timeseries.azure.com/) and check that tweets are streaming in. 
+
+ #### Azure Event Hubs Capture
+[Turn on Azure Event Hubs Capture]({Outputs.ehCapture})
+
+ * Click the **On** Capture toggle
+ * Take the default for **Time window** and **Size window**
+ * Chose **Azure Storage** for the Capture Provider
+ * Click the **Select Container** button > choose the **{Outputs.storageAccountName}** storage account
+ * Add a container and give it a name like **twitterrows** > choose **Private (no anonymous access)** as the Public access level > click **OK**
+ * Select the newly created container > click **Select**
+ * Use the default Sample Capture file name formats as **{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}**
+ * Click **Save Changes**
+
+![Capture Settings](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
 
 #### Azure Databricks Workspace
 [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
+* Click **Launch Workspace**
+
+![Launch Workspace](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
+
+* Choose Organization which will land you in the Azure Databricks Workspace
+
+![Azure Databricks Workspace](https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/iot-edge/media/tutorial-simulate-device-linux/docker-ps.png)
+
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
+* [Azure Event Hubs Capture]({Outputs.ehCapture})
 * [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
 **Change Keywords in Function app settings**
