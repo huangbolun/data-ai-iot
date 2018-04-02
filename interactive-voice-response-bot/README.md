@@ -1,8 +1,8 @@
 # Interactive Voice Response Bot on Azure - Solution Template
 
-[![Deploy to Azure](https://raw.githubusercontent.com/Azure/Azure-CortanaIntelligence-SolutionAuthoringWorkspace/master/docs/images/DeployToAzure.PNG)](https://start.cortanaintelligence.com/Deployments/new/interactive-voice-response-bot?source=GitHub)
+[![Deploy to Azure](https://raw.githubusercontent.com/Azure/data-ai-iot/master/images/DeployToAzure.PNG)](https://quickstart.azure.ai/Deployments/new/interactive-voice-response-bot?source=CiqsGallery)
 
-[View Deployed Solution](https://start.cortanaintelligence.com/Deployments?type=interactive-voice-response-bot)
+[View Deployed Solution](https://quickstart.azure.ai/Deployments?type=interactive-voice-response-bot)
 
 Please refer to this [repository](https://github.com/Azure/cortana-intelligence-interactive-voice-response-bot) which contains instructions and the necessary code to deploy an Interactive Voice Response Bot.
 

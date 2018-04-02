@@ -14,13 +14,13 @@
 [Turn on Azure Event Hubs Capture]({Outputs.ehCapture})
 
  * Click the **On** Capture toggle
- * Take the default for **Time window** and **Size window**
+ * Use the default for **Time window** and **Size window**
  * Chose **Azure Storage** for the Capture Provider
  * Click the **Select Container** button > choose the **{Outputs.storageAccountName}** storage account
  * Add a container and give it a name like **twitterrows** > choose **Private (no anonymous access)** as the Public access level > click **OK**
  * Select the newly created container > click **Select**
  * Use the default Sample Capture file name formats as **{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}**
- * Click **Save Changes**
+ * Click **Save changes**
 
 ![Capture Settings](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/Capture.JPG)
 
@@ -34,6 +34,25 @@
 * Choose Organization which will land you in the Azure Databricks Workspace
 
 ![Azure Databricks Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksWorkspace.JPG)
+
+#### Create and attach to a Event Hub Library using the Azure Event Hubs Spark Connector
+
+You can find details here on [Requirements for using the Azure Event Hubs Spark Connector](https://docs.azuredatabricks.net/spark/latest/structured-streaming/streaming-event-hubs.html#requirements)
+
+![Create Maven Library](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/createMavenLibrary.JPG)
+
+![azure-eventhubs-spark](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/azure-eventhubs-spark.JPG)
+
+#### Create a new Spark Cluster
+
+![Create Spark Cluster](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/newCluster.JPG)
+
+#### Attach Library to Spark Cluster
+
+![Attach Spark Cluster](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/attachLibrary.JPG)
+
+#### Create at Notebook to read Tweets from EventHub
+
 
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)

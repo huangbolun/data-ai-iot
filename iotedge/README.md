@@ -1,8 +1,8 @@
 ### Welcome to the Microsoft AI Solution Template - IoT Edge
 
-[![Deploy to Azure](https://raw.githubusercontent.com/Azure/Azure-CortanaIntelligence-SolutionAuthoringWorkspace/master/docs/images/DeployToAzure.PNG)](https://start.cortanaintelligence.com/Deployments/new/iotedge?source=GitHub)
+[![Deploy to Azure](https://raw.githubusercontent.com/Azure/data-ai-iot/master/images/DeployToAzure.PNG)](https://quickstart.azure.ai/Deployments/new/iotedge?source=GitHub)
 
-[View Deployed Solution](https://start.cortanaintelligence.com/Deployments?type=iotedge)
+[View Deployed Solution](https://quickstart.azure.ai/Deployments?type=iotedge)
 
 # Welcome to the Azure Machine Learning and IoT Edge Solution Template
 
