@@ -2,7 +2,7 @@
 
 [![Deploy to Azure](https://raw.githubusercontent.com/Azure/data-ai-iot/master/images/DeployToAzure.PNG)](https://quickstart.azure.ai/Deployments/new/databricks@user@09b0220e-f12e-4229-9008-8874466a9622?source=GitHub)
 
-[View Deployed Solution](https://quickstart.azure.ai/Deployments?type=iotedge)
+[View Deployed Solution](https://quickstart.azure.ai/Deployments)
 
 
 ## Prerequisites

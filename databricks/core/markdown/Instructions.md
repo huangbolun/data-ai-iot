@@ -35,21 +35,9 @@
 
 ![Azure Databricks Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksWorkspace.JPG)
 
-#### Create and attach to a Event Hub Library using the Azure Event Hubs Spark Connector
-
-You can find details here on [Requirements for using the Azure Event Hubs Spark Connector](https://docs.azuredatabricks.net/spark/latest/structured-streaming/streaming-event-hubs.html#requirements)
-
-![Create Maven Library](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/createMavenLibrary.JPG)
-
-![azure-eventhubs-spark](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/azure-eventhubs-spark.JPG)
-
 #### Create a new Spark Cluster
 
 ![Create Spark Cluster](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/newCluster.JPG)
-
-#### Attach Library to Spark Cluster
-
-![Attach Spark Cluster](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/attachLibrary.JPG)
 
 #### Create at Notebook to read Tweets from EventHub
 
