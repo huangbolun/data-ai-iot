@@ -1,5 +1,7 @@
 Great Demo using Cognitive Search to Understand the JFK Documents by Corom Thomposon.
 
+Here is an updated UI done by AI Marketing [Demo with new UX](https://jfk-demo.azurewebsites.net/)
+
 Full GitHub Repository found [Here](https://github.com/Microsoft/AzureSearch_JFK_Files)
 
 # The JFK Files
