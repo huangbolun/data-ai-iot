@@ -1,3 +1,11 @@
+# Data Science Virtual Machine
+
+Links to:
+* [Data Science Virtual Machine - Windows 2016](http://aka.ms/dsvm/win2016)
+* [Data Science Virtual Machine for Linux (Ubuntu)](http://aka.ms/dsvm/ubuntu)
+
+in the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/) 
+
 # Setting up for the Tutorial
 
 The following steps will get you up and running with the tutorial. For the sake of consistency, we have attempted to automate as many of the steps as possible to avoid running into issues during the setup phase, but as much as possible we try to do so in a transparent fashion so users know what is happening under the hood. We also try to give you more than one way to perform the setup using the commandline via the [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), the [Azure portal](https://portal.azure.com/), or the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.linux-data-science-vm-ubuntu?tab=Overview). In addition to getting your environment ready for the tutorial, the following outline can also serve as a short tutorial on how to manage Azure resource like a power user by leveraging the Azure CLI.
