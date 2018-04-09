@@ -41,11 +41,15 @@
 
 #### Create at Notebook to read Tweets from EventHub
 
+#### Get Text Analytics Cognitive Service Endpoint and Key 
+
+[Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl})
 
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
 * [Azure Event Hubs Capture]({Outputs.ehCapture})
 * [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
+* [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl})
 
 **Change Keywords in Function app settings**
 [Open the Function App](https://ms.portal.azure.com/?flight=1#blade/WebsitesExtension/FunctionsIFrameBlade/id/%2Fsubscriptions%2F{SubscriptionId}%2FresourceGroups%2F{ProjectName}%2Fproviders%2FMicrosoft.Web%2Fsites%2F{Outputs.functionAppName})

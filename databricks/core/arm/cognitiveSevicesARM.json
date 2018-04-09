@@ -1,0 +1,31 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+    },
+    "variables": {
+        "namePrefix": "[resourceGroup().name]",
+        "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
+        "location": "[resourceGroup().location]",
+        "cognSrvName": "[concat('TextAnalytics', variables('uniqueNamePrefix'))]"
+    },   
+    "resources": [
+    {   
+    "comments": "Generalized from resource:",
+    "type": "Microsoft.CognitiveServices/accounts",
+    "sku": {
+        "name": "S0"
+    },
+    "kind": "TextAnalytics",
+    "name": "[variables('cognSrvName')]",
+    "apiVersion": "2016-02-01-preview",
+    "location": "[variables('location')]",
+    "scale": null,
+    "properties": {},
+    "dependsOn": []
+    }
+    ],
+    "outputs": {
+    "textAnalyticsOverviewUrl": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.CognitiveServices/accounts/', variables('cognSrvName'),'/overview')]" }
+    }
+}

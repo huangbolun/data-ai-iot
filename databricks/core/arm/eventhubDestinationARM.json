@@ -1,0 +1,127 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Workspace Name for Azure Databricks."
+            }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        },
+        "storageContainerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage container name."
+            }
+        },
+        "storageAccountConnectionString": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account name."
+            }
+        }
+    },
+    "variables": {
+        "namePrefix": "[resourceGroup().name]",
+        "uniqueNamePrefix": "[toLower(concat(resourceGroup().name, uniqueString(subscription().subscriptionId)))]",
+        "location": "[resourceGroup().location]",
+        "sbVersion": "2017-04-01",
+        "sbNameDest": "[concat(variables('uniqueNamePrefix'), 'servicebusdest')]",
+        "sbKeyNameDest": "RootManageSharedAccessKey",
+        "sbResourceIdDest": "[resourceId('Microsoft.Eventhub/namespaces/authorizationRules', variables('sbNameDest'), variables('sbKeyNameDest'))]",
+        "ehInNameDest": "[concat(variables('namePrefix'), 'ehindest')]",
+        "ehSendPolicyKeyName": "SendPolicy",
+        "ehSendPolicyResourceIdDest": "[resourceId('Microsoft.EventHub/namespaces/eventHubs/authorizationRules', variables('sbNameDest'), variables('ehInNameDest'), variables('ehSendPolicyKeyName'))]",
+        "ehResourceIdDest": "[concat(concat(concat('Microsoft.Eventhub/namespaces/', variables('sbNameDest')), '/eventHubs/'), variables('ehInNameDest'))]",
+        "ehSendPolicyNameDest": "[concat(variables('sbNameDest'), concat('/', concat(variables('ehInNameDest'), concat('/', variables('ehSendPolicyKeyName')))))]",
+        "consumerGroupNameDest": "[concat(variables('namePrefix'), 'timeseriestweetsDest')]"
+    },
+    "resources": [
+    {
+        "apiVersion": "[variables('sbVersion')]",
+        "name": "[variables('sbNameDest')]",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+            "name": "Standard",
+            "tier": "Standard",
+            "capacity": 1
+        },
+        "location": "[variables('location')]",
+        "scale": null, 
+        "resources": [{
+            "apiVersion": "[variables('sbVersion')]",
+            "name": "[variables('ehInNameDest')]",
+            "type": "eventHubs",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Eventhub/namespaces/', variables('sbNameDest'))]"
+            ],
+            "properties": {
+                "path": "[variables('ehInNameDest')]"
+            },
+            "resources": [{
+                "apiVersion": "[variables('sbVersion')]",
+                "name": "[variables('consumerGroupNameDest')]",
+                "type": "ConsumerGroups",
+                "location": "[variables('location')]",
+                "dependsOn": [
+                    "[concat('Microsoft.EventHub/namespaces/', variables('sbNameDest'),'/eventhubs/',variables('ehInNameDest'))]"
+                ],
+                "properties": {}
+            }, {
+                "apiVersion": "[variables('sbVersion')]",
+                "name": "[variables('ehSendPolicyKeyName')]",
+                "type": "authorizationRules",
+                "location": "[variables('location')]",
+                "dependsOn": [
+                    "[variables('ehResourceIdDest')]"
+                ],
+                "properties": {
+                    "rights": [
+                        "Send",
+                        "Listen",
+                        "Manage"
+                    ]
+                }
+            }]
+        }]
+    }
+    ],
+    "outputs": {
+        "ehCaptureDest": { "type": "string", "value": "[concat('https://portal.azure.com/#resource/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.EventHub/namespaces/', variables('sbNameDest'), '/eventhubs/', variables('ehInNameDest'), '/capture')]" },
+        "eventHubConnectionStringDest": {
+            "type": "string",
+            "value": "[listkeys(variables('ehSendPolicyResourceIdDest'), variables('sbVersion')).primaryConnectionString]"
+        },
+        "sbNameDest": {
+            "type": "string",
+            "value": "[variables('sbNameDest')]"
+        },
+        "sbKeyNameDest": {
+            "type": "string",
+            "value": "[variables('sbKeyNameDest')]"
+        },
+        "sbResourceIdDest": {
+            "type": "string",
+            "value": "[variables('sbResourceIdDest')]"
+        },
+        "ehInNameDest": {
+            "type": "string",
+            "value": "[variables('ehInNameDest')]"
+        },
+        "consumerGroupNameDest": {
+            "type": "string",
+            "value": "[variables('consumerGroupNameDest')]"
+        },
+        "sbVersion": {
+            "type": "string",
+            "value": "[variables('sbVersion')]"
+        }
+    }
+}

@@ -36,7 +36,7 @@
         <Add key="TWITTER_OAUTH_TOKEN_SECRET" value="{Inputs.oauthTokenSecret}" />
       </AppSettings>
     </AzureFunctionApp>
-    <ArmDeployment source="arm/eventhubARM.json" title="Creating Event Hub" autoResolveParameters="true" >
+    <ArmDeployment source="arm/eventhubIngestARM.json" title="Creating Ingestion Event Hub" autoResolveParameters="true" >
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
           <Parameter name="storageAccountName" defaultValue="{Outputs.storageAccountName}" hidden="true" />
@@ -61,6 +61,14 @@
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
         </Parameters>
     </ArmDeployment>
+    <ArmDeployment source="arm/eventhubDestinationARM.json" title="Creating Destination Event Hub" autoResolveParameters="true" >
+        <Parameters>
+          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageAccountName" defaultValue="{Outputs.storageAccountName}" hidden="true" />
+          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+        </Parameters>
+    </ArmDeployment>
+    <ArmDeployment source="arm/cognitiveSevicesARM.json" title="Creating Cognitive Services Text Analytics account" autoResolveParameters="true" />
     <AzureFunctionApp title="Starting data ingress">
       <ConnectionStrings>
         <Add name="EventHubConnectionString" connectionString="{Outputs.eventHubConnectionStringIngest}" />
