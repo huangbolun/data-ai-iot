@@ -39,14 +39,36 @@
 
 #### Download and Import Notebook to read tweets from EventHub
 
-[Azure Data Bricks Notebook]({PatternAssetBaseUrl}/Notebooks/ReadTweetsFromEventHub.dbc)
+* Download [Azure Databricks Notebook]({PatternAssetBaseUrl}/notebooks/ReadTweetsFromEventHub.dbc) and Import into Workspace
 
 ![Import Notebook](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/ImportNotebook.JPG)
 
 
-#### Get Text Analytics Cognitive Service Endpoint and Key 
+#### Create and Attach a Library for the Azure Event Hubs Spark Connector
 
-[Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl})
+* [Create a library](https://docs.azuredatabricks.net/user-guide/libraries.html#maven-libraries) in your Databricks workspace using the Maven coordinate
+
+    ```com.microsoft.azure:azure-eventhubs-spark_2.11:2.3.1```
+
+![Create Maven Library](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/createMavenLibrary.JPG)
+
+* [Attach the created library](https://docs.azuredatabricks.net/user-guide/libraries.html#attach-libraries) to your Databricks cluster.
+ 
+![Attach Library](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/attachLibrary.JPG)
+
+#### Update the connection information in the Noteboook
+
+* This information goes in Cmd 2 of the Notebook
+
+		<IngestConnectionString>: {Outputs.eventHubConnectionStringIngest}
+		<EventHubName>: {Outputs.ehInNameIngest} 
+
+* Click here to get the [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl) key (under Manage keys) and Endpoint
+
+* This information goes in Cmd 11 of the Notebook
+
+		<IngestConnectionString>: {Outputs.eventHubConnectionStringDest}
+		<EventHubName>: {Outputs.ehInNameDest}
 
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
