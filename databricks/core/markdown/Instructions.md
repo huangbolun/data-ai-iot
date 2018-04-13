@@ -63,9 +63,10 @@
 		<IngestConnectionString>: {Outputs.eventHubConnectionStringIngest}
 		<EventHubName>: {Outputs.ehInNameIngest} 
 
-* Click here to get the [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl) key (under Manage keys) and Endpoint
+* This information goes in Cmd 8 of the Notebook
+* Click here to get the [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl) access key (under Manage keys) and Endpoint
 
-* This information goes in Cmd 11 of the Notebook
+* This information goes in Cmd 12 of the Notebook
 
 		<IngestConnectionString>: {Outputs.eventHubConnectionStringDest}
 		<EventHubName>: {Outputs.ehInNameDest}
