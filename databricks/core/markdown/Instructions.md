@@ -10,20 +10,6 @@
  
  [Open Time Series Insights](https://insights.timeseries.azure.com/) and check that tweets are streaming in. 
 
- #### Azure Event Hubs Capture
-[Turn on Azure Event Hubs Capture]({Outputs.ehCapture})
-
- * Click the **On** Capture toggle
- * Use the default for **Time window** and **Size window**
- * Chose **Azure Storage** for the Capture Provider
- * Click the **Select Container** button > choose the **{Outputs.storageAccountName}** storage account
- * Add a container and give it a name like **twitterrows** > choose **Private (no anonymous access)** as the Public access level > click **OK**
- * Select the newly created container > click **Select**
- * Use the default Sample Capture file name formats as **{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}**
- * Click **Save changes**
-
-![Capture Settings](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/Capture.JPG)
-
 #### Azure Databricks Workspace
 [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 
@@ -31,15 +17,32 @@
 
 ![Launch Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/LaunchWorkspace.JPG)
 
-* Choose Organization which will land you in the Azure Databricks Workspace
+* Choose Organization (if applicable) which will land you in the Azure Databricks Workspace
 
 ![Azure Databricks Workspace](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksWorkspace.JPG)
 
+
 #### Create a new Spark Cluster
+
+* Click on **Clusters** on the left navigation bar and then click on **+ Create Cluster**
+* Choose the Standard Cluster Type
+* Enter a Cluster Name
+* Choose **Databricks Runtime Version** 4.0
+* Choose **Python Version** 3
+* Choose **Driver Type** Same as worker
+* Choose **Worker Type** Standard)DS3_v2 (default) or something of your choice
+* Enter **Min Workers** 2 and change **Max Workers** to 3 and check **Enable Autoscaling**
+* Check Terminate after 120 minutes of inactivity (or what ever time you think appropriate)
+* Click **Create Cluster**
 
 ![Create Spark Cluster](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/newCluster.JPG)
 
-#### Create at Notebook to read Tweets from EventHub
+#### Download and Import Notebook to read tweets from EventHub
+
+[Azure Data Bricks Notebook]({PatternAssetBaseUrl}/Notebooks/ReadTweetsFromEventHub.dbc)
+
+![Import Notebook](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/ImportNotebook.JPG)
+
 
 #### Get Text Analytics Cognitive Service Endpoint and Key 
 
