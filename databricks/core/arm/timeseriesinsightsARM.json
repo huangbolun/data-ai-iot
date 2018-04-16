@@ -25,10 +25,23 @@
             "metadata": {
                 "description": "Service Bus Name Ingest."
             }
-        },"sbKeyName": {
+        },
+        "sbNameDest": {
             "type": "string",
             "metadata": {
-                "description": "Service Bus Key Name."
+                "description": "Service Bus Name Destination."
+            }
+        },
+        "sbKeyName": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus Key Name Ingest."
+            }
+        },
+        "sbKeyNameDest": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus Key Name Destination."
             }
         },
         "sbResourceIdIngest": {
@@ -37,13 +50,31 @@
                 "description": "Service Bus ResourceId Ingest."
             }
         },
+        "sbResourceIdDest": {
+            "type": "string",
+            "metadata": {
+                "description": "Service Bus ResourceId Destination."
+            }
+        },
         "ehInNameIngest": {
             "type": "string",
             "metadata": {
                 "description": "Event Hub Name Ingest."
             }
         },
+        "ehInNameDest": {
+            "type": "string",
+            "metadata": {
+                "description": "Event Hub Name Destination."
+            }
+        },
         "consumerGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "Event Hub Consumer Group Name."
+            }
+        },
+        "consumerGroupNameDest": {
             "type": "string",
             "metadata": {
                 "description": "Event Hub Consumer Group Name."
@@ -64,28 +95,50 @@
         "environmentSkuName": "S1",
         "environmentSkuCapacity": 1,
         "environmentDataRetentionTime": "P30D",
-        "environmentDisplayName": "[concat(variables('namePrefix'), 'StreamingTweets')]",
-        "eventSourceName": "[concat(variables('uniqueNamePrefix'), 'eventsource')]",
-        "eventSourceDisplayName": "Twitter Time Series Insights",
+        "environmentDisplayNameIngest": "[concat(variables('namePrefix'), 'StreamingTweets')]",
+        "environmentDisplayNameDest": "[concat(variables('namePrefix'), 'StreamingSentiment')]",
+        "eventSourceNameIngest": "[concat(variables('uniqueNamePrefix'), 'Ingesteventsource')]",
+        "eventSourceNameDest": "[concat(variables('uniqueNamePrefix'), 'Desteventsource')]",
+        "eventSourceDisplayNameIngest": "Raw Tweets",
+        "eventSourceDisplayNameDest": "Sentiment Tweets",
         "eventHubResourceId": "[parameters('sbResourceIdIngest')]",
+        "eventHubResourceIdDest": "[parameters('sbResourceIdDest')]",
         "eventHubServiceBusNamespace": "[parameters('sbNameIngest')]",
+        "eventHubServiceBusNamespaceDest": "[parameters('sbNameDest')]",
         "eventHubName": "[parameters('ehInNameIngest')]",
+        "eventHubNameDest": "[parameters('ehInNameDest')]",
         "eventHubConsumerGroupName": "[parameters('consumerGroupName')]",
+        "eventHubConsumerGroupNameDest": "[parameters('consumerGroupNameDest')]",
         "eventHubKeyName": "[parameters('sbKeyName')]",
-        "environmentTagsOptions": [
+        "eventHubKeyNameDest": "[parameters('sbKeyNameDest')]",
+        "environmentTagsOptionsIngest": [
             null,
             {
-                "displayName": "[variables('environmentDisplayName')]"
+                "displayName": "[variables('environmentDisplayNameIngest')]"
             }
         ],
-        "environmentTagsValue": "[variables('environmentTagsOptions')[length(take(variables('environmentDisplayName'), 1))]]",
-        "eventSourceTagsOptions": [
+        "environmentTagsValueIngest": "[variables('environmentTagsOptionsIngest')[length(take(variables('environmentDisplayNameIngest'), 1))]]",
+        "eventSourceTagsOptionsIngest": [
             null,
             {
-                "displayName": "[variables('eventSourceDisplayName')]"
+                "displayName": "[variables('eventSourceDisplayNameIngest')]"
             }
         ],
-        "eventSourceTagsValue": "[variables('eventSourceTagsOptions')[length(take(variables('eventSourceDisplayName'), 1))]]"
+        "eventSourceTagsValueIngest": "[variables('eventSourceTagsOptionsIngest')[length(take(variables('eventSourceDisplayNameIngest'), 1))]]",
+        "environmentTagsOptionsDest": [
+            null,
+            {
+                "displayName": "[variables('environmentDisplayNameDest')]"
+            }
+        ],
+        "environmentTagsValueDest": "[variables('environmentTagsOptionsDest')[length(take(variables('environmentDisplayNameDest'), 1))]]",
+        "eventSourceTagsOptionsDest": [
+            null,
+            {
+                "displayName": "[variables('eventSourceDisplayNameDest')]"
+            }
+        ],
+        "eventSourceTagsValueDest": "[variables('eventSourceTagsOptionsDest')[length(take(variables('eventSourceDisplayNameDest'), 1))]]"
     },
     "resources": [
     {
@@ -100,11 +153,11 @@
         "name": "[variables('environmentSkuName')]",
         "capacity": "[variables('environmentSkuCapacity')]"
       },
-      "tags": "[variables('environmentTagsValue')]",
+      "tags": "[variables('environmentTagsValueIngest')]",
       "resources": [
         {
           "type": "eventsources",
-          "name": "[variables('eventSourceName')]",
+          "name": "[variables('eventSourceNameIngest')]",
           "apiVersion": "2017-02-28-preview",
           "location": "[resourceGroup().location]",
           "kind": "Microsoft.EventHub",
@@ -116,11 +169,30 @@
             "keyName": "[variables('eventHubKeyName')]",
             "sharedAccessKey": "[listkeys(parameters('sbResourceIdIngest'), parameters('sbVersion')).primaryKey]"
           },
-          "tags": "[variables('eventSourceTagsValue')]",
+          "tags": "[variables('eventSourceTagsValueIngest')]",
           "dependsOn": [
             "[concat('Microsoft.TimeSeriesInsights/environments/', variables('environmentName'))]"
           ]
-        }
+        },
+        {
+            "type": "eventsources",
+            "name": "[variables('eventSourceNameDest')]",
+            "apiVersion": "2017-02-28-preview",
+            "location": "[resourceGroup().location]",
+            "kind": "Microsoft.EventHub",
+            "properties": {
+              "eventSourceResourceId": "[variables('eventHubResourceIdDest')]",
+              "serviceBusNamespace": "[variables('eventHubServiceBusNamespaceDest')]",
+              "eventHubName": "[variables('eventHubNameDest')]",
+              "consumerGroupName": "[variables('eventHubConsumerGroupNameDest')]",
+              "keyName": "[variables('eventHubKeyNameDest')]",
+              "sharedAccessKey": "[listkeys(parameters('sbResourceIdDest'), parameters('sbVersion')).primaryKey]"
+            },
+            "tags": "[variables('eventSourceTagsValueDest')]",
+            "dependsOn": [
+              "[concat('Microsoft.TimeSeriesInsights/environments/', variables('environmentName'))]"
+            ]
+          }
       ]
     }],
     "outputs": {

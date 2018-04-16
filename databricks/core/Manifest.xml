@@ -43,18 +43,6 @@
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
         </Parameters>
     </ArmDeployment>
-    <ArmDeployment source="arm/timeseriesinsightsARM.json" title="Creating Times Series Insights" autoResolveParameters="true" >
-        <Parameters>
-          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
-          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
-          <Parameter name="sbNameIngest" defaultValue="{Outputs.sbNameIngest}" hidden="true" />
-          <Parameter name="sbKeyName" defaultValue="{Outputs.sbKeyName}" hidden="true" />
-          <Parameter name="sbResourceIdIngest" defaultValue="{Outputs.sbResourceIdIngest}" hidden="true" />
-          <Parameter name="ehInNameIngest" defaultValue="{Outputs.ehInNameIngest}" hidden="true" />
-          <Parameter name="consumerGroupName" defaultValue="{Outputs.consumerGroupName}" hidden="true" />
-          <Parameter name="sbVersion" defaultValue="{Outputs.sbVersion}" hidden="true" />
-        </Parameters>
-    </ArmDeployment>
     <ArmDeployment source="arm/databricksARM.json" title="Creating Azure Databricks workspace" autoResolveParameters="true" >
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
@@ -66,6 +54,23 @@
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
           <Parameter name="storageAccountName" defaultValue="{Outputs.storageAccountName}" hidden="true" />
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+        </Parameters>
+    </ArmDeployment>
+    <ArmDeployment source="arm/timeseriesinsightsARM.json" title="Creating Times Series Insights" autoResolveParameters="true" >
+        <Parameters>
+          <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
+          <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+          <Parameter name="sbNameIngest" defaultValue="{Outputs.sbNameIngest}" hidden="true" />
+          <Parameter name="sbNameDest" defaultValue="{Outputs.sbNameDest}" hidden="true" />
+          <Parameter name="sbKeyName" defaultValue="{Outputs.sbKeyName}" hidden="true" />
+          <Parameter name="sbKeyNameDest" defaultValue="{Outputs.sbKeyNameDest}" hidden="true" />
+          <Parameter name="sbResourceIdIngest" defaultValue="{Outputs.sbResourceIdIngest}" hidden="true" />
+          <Parameter name="sbResourceIdDest" defaultValue="{Outputs.sbResourceIdDest}" hidden="true" />
+          <Parameter name="ehInNameIngest" defaultValue="{Outputs.ehInNameIngest}" hidden="true" />
+          <Parameter name="ehInNameDest" defaultValue="{Outputs.ehInNameDest}" hidden="true" />
+          <Parameter name="consumerGroupName" defaultValue="{Outputs.consumerGroupName}" hidden="true" />
+          <Parameter name="consumerGroupNameDest" defaultValue="{Outputs.consumerGroupNameDest}" hidden="true" />
+          <Parameter name="sbVersion" defaultValue="{Outputs.sbVersion}" hidden="true" />
         </Parameters>
     </ArmDeployment>
     <ArmDeployment source="arm/cognitiveSevicesARM.json" title="Creating Cognitive Services Text Analytics account" autoResolveParameters="true" />

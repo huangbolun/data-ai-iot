@@ -66,14 +66,20 @@
 * This information goes in Cmd 8 of the Notebook
 * Click here to get the [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl}) access key (under Manage keys) and Endpoint
 
+![Text Analytics Endpoint and AccessKey](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/textAnalyticsEndpointAndAccessKey.JPG)
+
 * This information goes in Cmd 12 of the Notebook
 
 		<IngestConnectionString>: {Outputs.eventHubConnectionStringDest}
 		<EventHubName>: {Outputs.ehInNameDest}
 
+#### Demo Time Series Insights
+
+* Demo [Time Series Insights](https://insights.timeseries.azure.com/)
+* Compare the two event streams
+
 #### Quick links
 * [Time Series Insights](https://insights.timeseries.azure.com/)
-* [Azure Event Hubs Capture]({Outputs.ehCapture})
 * [Azure Databricks Overview]({Outputs.databricksOverviewUrl})
 * [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl})
 
