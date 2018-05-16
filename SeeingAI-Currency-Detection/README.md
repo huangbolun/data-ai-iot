@@ -12,4 +12,4 @@ One of the most common needs among the blind community is to recognize paper cur
 ## Hands-on Workshop or Hands-on Lab
 If you are interested in trying this out please try the Hands-on Workshop or Hands-on Lab in this repository:
 
-[Data Science VM and Deep Learning VM Currency Detector Hands-on Workshop]()
+[Data Science VM and Deep Learning VM Currency Detector Hands-on Workshop](https://github.com/Azure/data-ai-iot/blob/master/SeeingAI-Currency-Detection/Data%20Science%20VM%20and%20Deep%20Learning%20VM%20Currency%20Detector%20Hands-on%20Workshop.docx)
