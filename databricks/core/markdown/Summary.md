@@ -1,4 +1,4 @@
-[![Solution Diagram]({PatternAssetBaseUrl}/databricksTwitter.jpg)]({PatternAssetBaseUrl}/databricksTwitter.jpg)
+[![Solution Diagram](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksTwitter.JPG)](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksTwitter.JPG)
 
 This solution sets up the infrastructure in the diagram above. The various steps are as follows:
 

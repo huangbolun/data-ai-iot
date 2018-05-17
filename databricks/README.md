@@ -4,6 +4,7 @@
 
 [View Deployed Solution](https://quickstart.azure.ai/Deployments)
 
+[![Solution Diagram](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksTwitter.JPG)](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/databricksTwitter.JPG)
 
 ## Prerequisites
 
