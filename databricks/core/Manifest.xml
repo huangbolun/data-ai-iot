@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Template>
-  <Title>Azure Databricks</Title>
+  <Title>Azure Databricks Spark Streaming</Title>
   <Owner displayname="Darwin Schweitzer" email="darsch@microsoft.com"/>
   <ImageUrl>{PatternAssetBaseUrl}/azuredatabricks.png</ImageUrl>
-  <Description>Analyzing data streams in real-time using Operational Technology like real-time times series analysis to detect changes, monitor, and/or control physical devices, processes, and events in the enterprise..  This tutorial lets you stream data from Twitter using Key Words of your choice including #hashtags and @mentions and use Microsoft's Time Series Insights to monitor those keywords.</Description>
+  <Description>Analyzing data streams in real-time using Azure Databricks Spark Streaming, Azure Event Hubs, Cognitive Services Text Analytics, and Time Series Insights.</Description>
   <Summary src="markdown/Summary.md" format="markdown"/>
   <EstimatedTime>15 Minutes</EstimatedTime>
-  <EstimatedCost daily="$12.45" url="https://azure.github.io/Azure-CortanaIntelligence-SolutionAuthoringWorkspace/solution-prices#time-series-insights-using-twitter" />
   <ProvisioningSteps>
     <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
       <Parameters>
