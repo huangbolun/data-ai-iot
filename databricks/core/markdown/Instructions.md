@@ -61,17 +61,28 @@
 * This information goes in Cmd 2 of the Notebook
 
 		<IngestConnectionString>: {Outputs.eventHubConnectionStringIngest}
-		<EventHubName>: {Outputs.ehInNameIngest} 
+		<IngestEventHubName>: {Outputs.ehInNameIngest} 
 
 * This information goes in Cmd 8 of the Notebook
 * Click here to get the [Text Analytics Cognitive Service]({Outputs.textAnalyticsOverviewUrl}) access key (under Manage keys) and Endpoint
 
 ![Text Analytics Endpoint and AccessKey](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/textAnalyticsEndpointAndAccessKey.JPG)
 
+* Note that for the host value you need to drop the **/text/analytics/v2.0** from the end of the endpoint as per the example below 
+
+![CognitiveServices API Connection Settings](https://raw.githubusercontent.com/Azure/data-ai-iot/master/databricks/assets/CognitiveServicesAPIConSettings.JPG)
+
+
 * This information goes in Cmd 12 of the Notebook
 
-		<IngestConnectionString>: {Outputs.eventHubConnectionStringDest}
-		<EventHubName>: {Outputs.ehInNameDest}
+		<DestConnectionString>: {Outputs.eventHubConnectionStringDest}
+		<DestEventHubName>: {Outputs.ehInNameDest}
+
+#### Run the Notebook
+
+* Go back to the top of the Notebook and choose Run All
+* Review the notebook to see if all the cells ran
+* Go into Time Series Insights and see if the data is streaming for the EventSource Name of "Sentiment Tweets"
 
 #### Demo Time Series Insights
 

@@ -1,10 +1,19 @@
-[![Solution Diagram]({PatternAssetBaseUrl}/twittertimeseriesinsights.jpg)]({PatternAssetBaseUrl}/twittertimeseriesinsights.jpg)
+[![Solution Diagram]({PatternAssetBaseUrl}/databricksTwitter.jpg)]({PatternAssetBaseUrl}/databricksTwitter.jpg)
 
 This solution sets up the infrastructure in the diagram above. The various steps are as follows:
 
 * Setting up an Azure WebJob to collect Twitter data based on user specified keywords.
-* Pumping ingested tweets into Azure Event Hub which can accept millions of events per second.
-* Visualizing real-time metrics about inferred sentiment using Time Series Insights for Operational Technology real-time monitoring and Power BI for Information Technology reporting and analysis.
+* Ingesting tweets into Azure Event Hub.
+* Visualizing real-time metrics using Time Series Insights for Operational Technology real-time monitoring.
+* Stream data with Azure Databricks using Spark Streaming
+* Text Analytics Cognitive Service to provide sentiment regarding the tweets
+* Using a second Azure Event Hub to send the Spark Streaming output to Time Series Insights  
+
+## Thank you to the following people that inspired, and helped unblock me along the way:
+* **Andrew Ivanov** for all the work on this Twitter streaming solution template since the "Project Hudson" days
+* **Garren Staubli** (Solution Architect at [Blueprint](https://bpcs.com/)) for all the help with Spark Streaming and Scala
+* **Sabee Grewal** for the help with the [Azure Event Hubs Connector for Apache Spark](https://github.com/Azure/azure-event-hubs-spark)
+* **Lena Hall** for the scenario code from [Azure.com](https://docs.microsoft.com/en-us/azure/azure-databricks/databricks-sentiment-analysis-cognitive-services)
 
 ## Prerequisites
 

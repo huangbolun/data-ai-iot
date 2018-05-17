@@ -17,3 +17,9 @@ To run the TwitterClient web job, you will need:
   - Under **Your Access Token** section, click on *Create my access token* to obtain both *Access Token* and *Access Token Secret*
 
 More details on Twitter's Streaming API OAuth access token can be found [here](https://dev.twitter.com/oauth/overview/application-owner-access-tokens).
+
+## Thank you to the following people that inspired, and helped unblock me along the way:
+* **Andrew Ivanov** for all the work on this Twitter streaming solution template since the "Project Hudson" days
+* **Garren Staubli** (Solution Architect at [Blueprint](https://bpcs.com/)) for all the help with Spark Streaming and Scala
+* **Sabee Grewal** for the help with the [Azure Event Hubs Connector for Apache Spark](https://github.com/Azure/azure-event-hubs-spark)
+* **Lena Hall** for the scenario code from [Azure.com](https://docs.microsoft.com/en-us/azure/azure-databricks/databricks-sentiment-analysis-cognitive-services)
