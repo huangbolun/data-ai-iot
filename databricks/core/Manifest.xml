@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Template>
   <Title>Azure Databricks Spark Streaming</Title>
+  <Category>Solution</Category>
   <Owner displayname="Darwin Schweitzer" email="darsch@microsoft.com"/>
   <ImageUrl>{PatternAssetBaseUrl}/azuredatabricks.png</ImageUrl>
   <Description>Analyzing data streams in real-time using Azure Databricks Spark Streaming, Azure Event Hubs, Cognitive Services Text Analytics, and Time Series Insights.</Description>

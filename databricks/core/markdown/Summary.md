@@ -15,6 +15,7 @@ This solution sets up the infrastructure in the diagram above. The various steps
 * **Sabee Grewal** for the help with the [Azure Event Hubs Connector for Apache Spark](https://github.com/Azure/azure-event-hubs-spark)
 * **Lena Hall** for the scenario code from [Azure.com](https://docs.microsoft.com/en-us/azure/azure-databricks/databricks-sentiment-analysis-cognitive-services)
 * **Giuliano Rapoz** for figuring out why the sentiment was not returning from Cognitive Services
+* **Jay Desai** for helping me get this Solution Template published
 
 ## Prerequisites
 

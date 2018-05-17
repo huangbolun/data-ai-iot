@@ -25,3 +25,4 @@ More details on Twitter's Streaming API OAuth access token can be found [here](h
 * **Sabee Grewal** for the help with the [Azure Event Hubs Connector for Apache Spark](https://github.com/Azure/azure-event-hubs-spark)
 * **Lena Hall** for the scenario code from [Azure.com](https://docs.microsoft.com/en-us/azure/azure-databricks/databricks-sentiment-analysis-cognitive-services)
 * **Giuliano Rapoz** for figuring out why the sentiment was not returning from Cognitive Services
+* **Jay Desai** for helping me get this Solution Template published
