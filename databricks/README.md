@@ -1,6 +1,6 @@
 ### Welcome to the Microsoft AI Solution Template - Tweets using Event Hub, Azure Databricks, and Time Series Insights
 
-[![Deploy to Azure](https://raw.githubusercontent.com/Azure/data-ai-iot/master/images/DeployToAzure.PNG)](https://quickstart.azure.ai/Deployments/new/databricks@share@09b0220e-f12e-4229-9008-8874466a9622?source=GitHub)
+[![Deploy to Azure](https://raw.githubusercontent.com/Azure/data-ai-iot/master/images/DeployToAzure.PNG)](https://quickstart.azure.ai/Deployments/new/databricks?source=GitHub)
 
 [View Deployed Solution](https://quickstart.azure.ai/Deployments)
 
