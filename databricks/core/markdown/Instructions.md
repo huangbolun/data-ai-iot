@@ -101,3 +101,6 @@
  * Click **Save** at the top of the App settings blade
  * Open the Database in SQL Server Management Studio or Visual Studio and open a **New Query**
  * Enter ```truncate table TweetScore``` and click **Execute** (This will remove all the records from you previous key words)
+
+ #### Additional Sample Notebooks
+ * Download [Additional Sample Azure Databricks Notebooks]({PatternAssetBaseUrl}/notebooks/AzureDatabricks-SampleNotebooks.zip)
