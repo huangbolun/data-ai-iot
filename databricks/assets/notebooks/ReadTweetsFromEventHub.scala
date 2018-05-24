@@ -206,7 +206,11 @@ val toSentiment = udf((textContent: String) => {
     // Placeholder value to display for no score returned by the sentiment API
     (-1).toDouble
   } else {
-    docsWithSentiment.documents.get(0).sentiment.toDouble
+    if(docsWithSentiment.documents != null && docsWithSentiment.documents.size() > 0)
+      {
+          docsWithSentiment.documents.get(0).sentiment.toDouble
+      } 
+    else {(-2).toDouble}
   }
 })
 
