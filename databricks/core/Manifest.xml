@@ -47,6 +47,7 @@
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+          <Parameter name="workspaceName" defaultValue="bricks" hidden="true" />
         </Parameters>
     </ArmDeployment>
     <ArmDeployment source="arm/eventhubDestinationARM.json" title="Creating Destination Event Hub" autoResolveParameters="true" >
