@@ -9,9 +9,10 @@
   <EstimatedTime>15 Minutes</EstimatedTime>
   <ProvisioningSteps>
     <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
-      <Parameters>
-        <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="([A-Za-z0-9_-]+){3,}" />
-      </Parameters>
+      <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="([A-Za-z0-9_-]+){3,}">
+        <ExtraDescription>Workspace name must contain only alphanumeric characters, may contain hyphens and underscores, and must be
+ at least three characters long.</ExtraDescription>
+      </Parameter>
     </Manual>
     <Manual title="Configure Twitter listener">
       <Parameters>
