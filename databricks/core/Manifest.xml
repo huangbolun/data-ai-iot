@@ -10,7 +10,7 @@
   <ProvisioningSteps>
     <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
       <Parameters>
-        <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" />
+        <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="([A-Za-z0-9_-]+){3,}" />
       </Parameters>
     </Manual>
     <Manual title="Configure Twitter listener">
@@ -47,7 +47,7 @@
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
-          <Parameter name="workspaceName" defaultValue="bricks" hidden="true" />
+          <Parameter name="workspaceName" defaultValue="{Inputs.workspaceName}" hidden="true" />
         </Parameters>
     </ArmDeployment>
     <ArmDeployment source="arm/eventhubDestinationARM.json" title="Creating Destination Event Hub" autoResolveParameters="true" >
