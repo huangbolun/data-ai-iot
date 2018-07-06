@@ -9,9 +9,10 @@
   <EstimatedTime>15 Minutes</EstimatedTime>
   <ProvisioningSteps>
     <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
-      <Parameters>
-        <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" />
-      </Parameters>
+      <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="([A-Za-z0-9_-]+){3,}">
+        <ExtraDescription>Workspace name must contain only alphanumeric characters, may contain hyphens and underscores, and must be
+ at least three characters long.</ExtraDescription>
+      </Parameter>
     </Manual>
     <Manual title="Configure Twitter listener">
       <Parameters>
@@ -47,6 +48,7 @@
         <Parameters>
           <Parameter name="storageAccountConnectionString" defaultValue="DefaultEndpointsProtocol=https;AccountName={Outputs.storageAccountName};AccountKey={Outputs.storageAccountKey}" hidden="true" />
           <Parameter name="storageContainerName" defaultValue="twitterrows" hidden="true" />
+          <Parameter name="workspaceName" defaultValue="{Inputs.workspaceName}" hidden="true" />
         </Parameters>
     </ArmDeployment>
     <ArmDeployment source="arm/eventhubDestinationARM.json" title="Creating Destination Event Hub" autoResolveParameters="true" >
