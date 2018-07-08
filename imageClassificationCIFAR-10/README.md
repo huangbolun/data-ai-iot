@@ -75,7 +75,7 @@ After you have checked for the availability of Standard NC Family vCPUs in your 
 1. Download and install the [Azure CLI Installer (MSI) for Windows](https://aka.ms/InstallAzureCliWindows) or [Mac or Linux](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) . Once the installation is complete open the command prompt and run `az login`, then copy the access code returned. In a browser, open a **private tab** and enter the URL `aka.ms/devicelogin`. When prompted, paste in the access code from above. You will be prompted to authenticate using our Azure account.  Go through the appropriate multifaction authenication.
 2. In you have never deployed the DSVM before, log into the Azure Portal and click on the Create a resource green + sign in the left panel and search for and select **Data Science Virtual Machine for Linux (Ubuntu)**. On the resources' page, click on the link in the buttom that says <u>Want to deploy programmatically? Get started</u>
 Scroll down and make sure that the status is enabled for the intended subscription.
-3. From **Windows Explorer** navigate to the DataScienceVM folder `DataScienceVM\Tutorials\MLADS-spring-2018\setup` and from there launch the command prompt by going to the address bar and typing `cmd` (for the Windows command prompt) or `bash` (for the Linux command prompt assuming it is installed already) and type `az --version` to check the installation.  Copy over the `parameters-ldsvm.json` from the data-ai-iot folder `data-ai-iot\imageClassificationCIFAR-10\setup`.  Note this come from the GitHub repos you cloned during the Prerequisites above.  
+3. Navigate to the DataScienceVM folder `DataScienceVM\Tutorials\MLADS-spring-2018\setup` If using **Windows Explorer** you can launch the command prompt by going to the address bar and typing `cmd` (for the Windows command prompt) or `bash` (for the Linux command prompt assuming it is installed already) and type `az --version` to check the installation.  Copy over the `parameters-ldsvm.json` from the data-ai-iot folder `data-ai-iot\imageClassificationCIFAR-10\setup`.  Note this come from the GitHub repos you cloned during the Prerequisites above.  
 
 4. When you logged in to the CLI in step 1 above you will see a json list of all the Azure account you have access to. Run `az account show` to see you current active account.  Run `az account list -o table` if you want to see all of you Azure account in a table. If you would like to switch to another Azure account run `az account set --subscription <your SubscriptionId>` to set the active subcription.  Run `az group create -n cifartutorial -l westus` to create a resource group called `cifartutorial`.
 
@@ -92,17 +92,17 @@ After 10 minutes of provisioning:
 1. Sign in to Jupyter Hub
 
 Your login will be something like this:
-`https://dsvmwz2dgsjsfbiuy.westus.cloudapp.azure.com:8000/hub/login`
+`https://ready2018ldsvm0.westus.cloudapp.azure.com:8000/hub/login`
 
 `https://<DNSname>:8000/hub/login` or `https://<PublicIPaddress>:8000/hub/login`
 
 ![SignIn](https://raw.githubusercontent.com/Azure/data-ai-iot/master/imageClassificationCIFAR-10/images/jupyterHubSignIn.png)
 
-Enter the Username and Password you used during provisioning
+Enter the Username and Password you used during provisioning.  You might need to click on the green **Start My Server** button.
 
 2. Check that things are ready to go.  In Juypter click on the New drop-down and choose Terminal (Note you can do this by connecting to the server with any terminal)
 
-  A) Enter the nvidia-smi command at the $ prompt.  It should come back as NVIDIA-SMI Driver Version: 390.46
+  A) Enter the `nvidia-smi` command at the $ prompt.  It should come back as NVIDIA-SMI Driver Version: 390.46
 
 ![jupyterTerminal](https://raw.githubusercontent.com/Azure/data-ai-iot/master/imageClassificationCIFAR-10/images/jupyterTerminal.png)
 
@@ -132,14 +132,50 @@ from IPython.display import Image as ShowImage
 ShowImage(url="https://cntk.ai/jup/201/cifar-10.png", width=500, height=500)
 ```
 
-7. You can start/stop/restart your VM from the CLI using the corresponding commands below:
+After you are finished with the second notebook open up the `3. deploy_model` notebook and enter a unique service_name and ml_server_password in the first cell (Note that the ARM template sets the default ML Server password to `Dsvm@123` in the configure_vm.sh file).  The section in the configure_vm.sh file looks as follows:
+
+```
+# configure MLS
+cd /opt/microsoft/mlserver/9.2.1/o16n
+sudo dotnet Microsoft.MLServer.Utils.AdminUtil/Microsoft.MLServer.Utils.AdminUtil.dll -silentoneboxinstall Dsvm@123
+```
+
+Here is an example of what the first cell should look like:
+
+```
+# choose a unique service name. We recommend you use your username and a number, like alias3
+service_name = 'darwin3'
+
+# set the ML Server admin password. This is NOT your login password; it is the admin password for Machine Learning Server. If you deployed this tutorial using the ARM template in GitHub, this password is Dsvm@123
+ml_server_password = 'Dsvm@123' 
+```
+
+Run the cells individually by highlighting the cell and entering `Ctrl-Enter`
+
+## Manage you GPU VM
+
+There are a couple of ways to manage the cost of your VM.
+
+1. configure Auto-shutdown on your VM in the [Azure Portal](https://portal.azure.com).
+
+![autoshutdown](https://raw.githubusercontent.com/Azure/data-ai-iot/master/imageClassificationCIFAR-10/images/autoshutdown.png)
+
+Save a time, time zone, and enter your email if you want to get a email 30 minutes before the VM auto-shutdowns.  You can decline the shutdown when you receive the email if you want the VM to continue running.
+
+![SaveAutoshutdown](https://raw.githubusercontent.com/Azure/data-ai-iot/master/imageClassificationCIFAR-10/images/SaveAutoshutdown.png)
+
+You can of course Start and Stop the VM using the Azure Portal and can review the status of your [Virtual Machines](https://portal.azure.com/#blade/HubsExtension/Resources/resourceType/Microsoft.Compute%2FVirtualMachines)
+
+2. You can start/stop/restart your VM from the CLI using the corresponding commands below:
 ```
 az vm start -g cifartutorial -n ready2018ldsvm
 az vm stop -g cifartutorial -n ready2018ldsvm
 az vm restart -g cifartutorial -n ready2018ldsvm
 ```
 
-## Thank you to member of the DSVM Product team who created this tutorial:
+Hope you enjoyed this tutorial.
+
+## Thank you to the members of the DSVM Product team who created this tutorial:
 * **Paul Shealy** 
 * **Gopi Kumar**
 * **Nishank Gupta** 
