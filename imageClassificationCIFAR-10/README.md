@@ -9,7 +9,7 @@ The [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) consists of 6
 
 ## MLADS Tutorial
 
-This tutorial was presented at MLADS (Machine Learning and Data Science), Microsoft's internal machine learning conference, in spring 2018. It is a hands-on tutorial on deep learning that focuses on image classification with CIFAR-10. It has three hands-on components:
+This README extends and documents the work done in the MLADS-spring-2018 tutorial available in the [DataScienceVM GitHub Repo](https://github.com/Azure/DataScienceVM/tree/master/Tutorials/MLADS-spring-2018). This tutorial was presented at MLADS (Machine Learning and Data Science), Microsoft's internal machine learning conference, in spring 2018. It is a hands-on tutorial on deep learning that focuses on image classification with CIFAR-10. It has three hands-on components:
 
 1. Preprocessing images using the local Spark instance
 2. Building an image classifier using the Microsoft Cognitive Toolkit
