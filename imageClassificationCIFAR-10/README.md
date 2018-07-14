@@ -7,6 +7,8 @@ The [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) consists of 6
 
 ![imageClassificationCIFAR-10](https://raw.githubusercontent.com/Azure/data-ai-iot/master/imageClassificationCIFAR-10/images/CIFAR-10.png)
 
+Based on paper [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf), Alex Krizhevsky, 2009.
+
 ## MLADS Tutorial
 
 This README extends and documents the work done in the MLADS-spring-2018 tutorial available in the [DataScienceVM GitHub Repo](https://github.com/Azure/DataScienceVM/tree/master/Tutorials/MLADS-spring-2018). This tutorial was presented at MLADS (Machine Learning and Data Science), Microsoft's internal machine learning conference, in spring 2018. It is a hands-on tutorial on deep learning that focuses on image classification with CIFAR-10. It has three hands-on components:
@@ -178,4 +180,6 @@ Hope you enjoyed this tutorial.
 ## Thank you to the members of the DSVM Product team who created this tutorial:
 * **Paul Shealy** 
 * **Gopi Kumar**
-* **Nishank Gupta** 
+* **Nishank Gupta**
+* **Banibrata De**
+* **David Cowan**
