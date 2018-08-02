@@ -23,10 +23,17 @@
       </Parameters>
     </Manual>
     <ArmDeployment source="template-iothub.json" title="Creating an Azure IoT Hub" autoResolveParameters="true" />
-    <Manual title="Enter IoT Edge Device Connection string to install and start the IoT Edge runtime">
+    <Manual title="Enter Edge Device Connectionstring to install IoT Edge runtime">
       <Instructions src="iotedgert.md" format="markdown" />
       <Parameters>
         <Parameter name="deviceconnectionstring" description="IoT Edge Device Connection string--primarykey" type="string" />
+      </Parameters>
+    </Manual>
+	<Manual title="Select device machine size">
+      <Parameters>
+        <VmSku name="DvmSize" defaultValue="Standard_D4S_v3" description="Device Virtual Machine size">
+			<ExtraDescription>Select IoT Edge device size. Suggested size is 'Standard_D4S_v3'.</ExtraDescription>
+		</VmSku>
       </Parameters>
     </Manual>
     <ArmDeployment source="template-ldeviceext-ciqs.json" title="Installing and starting the IoT Edge runtime" autoResolveParameters="true" />

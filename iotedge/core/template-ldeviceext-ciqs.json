@@ -1,4 +1,4 @@
-﻿{
+{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -19,7 +19,14 @@
             "metadata": {
                 "description": "IoT Edge Device Connection String."
             }
-        }	
+        },
+		"DvmSize": {
+			"type": "string",
+			"defaultValue" : "Standard_D4S_v3",
+			"metadata": {
+                "description": "Virtual Machine Size."
+            }
+		}
     },
     "variables": {
         "uniqueNameSuffix": "[toLower(uniqueString(resourceGroup().id,subscription().subscriptionId))]",
@@ -38,7 +45,7 @@
         "publicIPAddressType": "Dynamic",
         "DpublicIPAddressName": "[concat('dpubip', variables('uniqueNameSuffix'))]",
         "DvmName": "mydevicevm",
-        "DvmSize": "Standard_D4S_v3",
+        "DvmSize": "[parameters('DvmSize')]",
         "DvirtualNetworkName": "[concat('dvnet', variables('uniqueNameSuffix'))]",
         "DvnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('DvirtualNetworkName'))]",
         "DsubnetRef": "[concat(variables('DvnetID'),'/subnets/',variables('subnetName'))]",
