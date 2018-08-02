@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Template>
   <Title>Azure Databricks Spark Streaming</Title>
+  <IsLegacyTemplate>true</IsLegacyTemplate>  
   <Category>Solution</Category>
   <Owner displayname="Darwin Schweitzer" email="darsch@microsoft.com"/>
   <ImageUrl>{PatternAssetBaseUrl}/azuredatabricks.png</ImageUrl>
@@ -9,10 +10,11 @@
   <EstimatedTime>15 Minutes</EstimatedTime>
   <ProvisioningSteps>
     <Manual parameterSource="arm/template-parameters.json" title="Setup Azure Databricks Workspace">
-      <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="([A-Za-z0-9_-]+){3,}">
-        <ExtraDescription>Workspace name must contain only alphanumeric characters, may contain hyphens and underscores, and must be
- at least three characters long.</ExtraDescription>
-      </Parameter>
+      <Parameters>
+        <Parameter name="workspaceName" description="Azure Databricks Workspace name" type="string" regex="^[\w-_]{1,30}$" >
+          <ExtraDescription>Workspace name must contain only alphanumeric characters, and/or hyphens and underscores, and must be 1-30 characters long.</ExtraDescription>
+        </Parameter>
+      </Parameters>
     </Manual>
     <Manual title="Configure Twitter listener">
       <Parameters>
